@@ -1,0 +1,15 @@
+{
+  "id": "akmalshahbaz/exp4-dpo-alignment-agentic-insurance-claims",
+  "title": "Exp 4: DPO Alignment & Agentic Insurance Claims",
+  "code_file": "exp4_agentic_langgraph_dpo_mlflow.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

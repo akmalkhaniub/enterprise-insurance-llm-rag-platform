@@ -1,0 +1,15 @@
+{
+  "id": "akmalshahbaz/exp2-faiss-hybrid-rag-contrastive-embeddings",
+  "title": "Exp 2: FAISS Hybrid RAG & Contrastive Embeddings",
+  "code_file": "exp2_faiss_hybrid_rag_embeddings.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": "false",
+  "enable_gpu": "true",
+  "enable_tpu": "false",
+  "enable_internet": "true",
+  "dataset_sources": [],
+  "competition_sources": [],
+  "kernel_sources": [],
+  "model_sources": []
+}

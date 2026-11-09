@@ -1,0 +1,30 @@
+version: "3.9"
+
+services:
+  insurance-llm-rag-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: insurance-llm-rag-api
+    ports:
+      - "8000:8000"
+    environment:
+      - ENV=production
+      - MLFLOW_TRACKING_URI=http://mlflow-server:5000
+      - AZURE_STORAGE_CONTAINER=insurance-policy-corpus
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_PROJECT=enterprise-insurance-mining
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
+      interval: 20s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  mlflow-registry:
+    image: ghcr.io/mlflow/mlflow:v2.17.2
+    container_name: insurance-mlflow-registry
+    ports:
+      - "5000:5000"
+    command: mlflow server --host 0.0.0.0 --port 5000
+    restart: unless-stopped

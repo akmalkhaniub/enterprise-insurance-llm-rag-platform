@@ -1,0 +1,26 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Distribution / packaging
+dist/
+build/
+*.egg-info/
+
+# Pytest & coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# MLflow & Kaggle runtime logs
+mlruns/
+mlartifacts/
+kaggle_outputs/
+.DS_Store
+Thumbs.db
