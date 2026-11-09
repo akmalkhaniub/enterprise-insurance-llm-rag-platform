@@ -96,8 +96,12 @@ def build_all_insurance_kernels() -> None:
         ),
         (
             "code",
-            r"""import json, math, os, shutil, time, warnings
+            r"""import json, math, os, shutil, subprocess, time, warnings
 warnings.filterwarnings("ignore")
+try:
+    subprocess.run(["pip", "uninstall", "-y", "torchao"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+except Exception:
+    pass
 import numpy as np
 import pandas as pd
 import torch
@@ -645,8 +649,12 @@ with open("/kaggle/working/exp3_long_context_rope_metrics.json", "w") as f:
         ),
         (
             "code",
-            r"""import copy, json, math, time, warnings
+            r"""import copy, json, math, subprocess, time, warnings
 warnings.filterwarnings("ignore")
+try:
+    subprocess.run(["pip", "uninstall", "-y", "torchao"], check=False, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+except Exception:
+    pass
 import numpy as np
 import pandas as pd
 import torch
