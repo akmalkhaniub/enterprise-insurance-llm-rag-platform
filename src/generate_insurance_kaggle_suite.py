@@ -306,7 +306,7 @@ print("Saved adapter_model.safetensors and exp1_qwen25_lora_metrics.json to /kag
     ]
     _write_kernel(
         folder_name="exp1_qwen_qlora_insurance",
-        slug="exp1-qwen2-5-lora-insurance-claims-finetuning",
+        slug="exp-1-qwen2-5-lora-insurance-claims-fine-tuning",
         title="Exp 1: Qwen2.5 LoRA Insurance Claims Fine-Tuning",
         enable_gpu=True,
         cells=exp1_cells,
@@ -624,7 +624,7 @@ with open("/kaggle/working/exp3_long_context_rope_metrics.json", "w") as f:
     ]
     _write_kernel(
         folder_name="exp3_long_context_rope_policy_mining",
-        slug="exp3-long-context-rope-insurance-policy-mining",
+        slug="exp-3-long-context-rope-insurance-policy-mining",
         title="Exp 3: Long-Context RoPE Insurance Policy Mining",
         enable_gpu=True,
         cells=exp3_cells,
@@ -761,7 +761,7 @@ with open("/kaggle/working/exp4_dpo_metrics.json", "w") as f:
     ]
     _write_kernel(
         folder_name="exp4_agentic_langgraph_dpo_mlflow",
-        slug="exp4-dpo-alignment-agentic-insurance-claims",
+        slug="exp-4-dpo-alignment-agentic-insurance-claims",
         title="Exp 4: DPO Alignment & Agentic Insurance Claims",
         enable_gpu=True,
         cells=exp4_cells,

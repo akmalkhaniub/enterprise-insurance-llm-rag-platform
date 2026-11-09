@@ -1,5 +1,5 @@
 {
-  "id": "akmalshahbaz/exp1-qwen2-5-lora-insurance-claims-finetuning",
+  "id": "akmalshahbaz/exp-1-qwen2-5-lora-insurance-claims-fine-tuning",
   "title": "Exp 1: Qwen2.5 LoRA Insurance Claims Fine-Tuning",
   "code_file": "exp1_qwen_qlora_insurance.ipynb",
   "language": "python",

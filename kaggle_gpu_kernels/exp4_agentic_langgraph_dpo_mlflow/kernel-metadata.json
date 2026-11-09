@@ -1,5 +1,5 @@
 {
-  "id": "akmalshahbaz/exp4-dpo-alignment-agentic-insurance-claims",
+  "id": "akmalshahbaz/exp-4-dpo-alignment-agentic-insurance-claims",
   "title": "Exp 4: DPO Alignment & Agentic Insurance Claims",
   "code_file": "exp4_agentic_langgraph_dpo_mlflow.ipynb",
   "language": "python",

@@ -23,6 +23,19 @@
 
 ---
 
+## ☁️ Executed Cloud GPU LLM & RAG Benchmark Suite (Kaggle Kernels)
+
+All **4 flagship open-weight LLM fine-tuning, embedding adaptation, long-context RoPE, and DPO alignment experiments** are built for **Kaggle Cloud (NVIDIA Tesla T4 GPU)** with high-speed HuggingFace Hub connectivity:
+
+| # | Live Kaggle GPU Kernel | Backbone Model & Optimization Strategy | Verified Cloud GPU Benchmark Result & Artifact |
+| :--- | :--- | :--- | :--- |
+| **Exp 1** | **[Exp 1: Qwen2.5 LoRA Insurance Claims Fine-Tuning](https://www.kaggle.com/code/akmalshahbaz/exp-1-qwen2-5-lora-insurance-claims-fine-tuning)**<br/>([`kaggle_gpu_kernels/exp1_qwen_qlora_insurance/`](kaggle_gpu_kernels/exp1_qwen_qlora_insurance/exp1_qwen_qlora_insurance.ipynb)) • ⚡ *Tesla T4 GPU* | **`Qwen/Qwen2.5-0.5B-Instruct`** (`494M` parameters) + HuggingFace **`peft` LoRA (`r=16, alpha=32`)** / 4-bit QLoRA targeting `q_proj, k_proj, v_proj, o_proj` | Evaluates Zero-Shot vs. Fine-Tuned LoRA on Holdout Perplexity, Token F1, Strict JSON Schema Validity, and Latency (`ms/token`). Exports `adapter_model.safetensors` to `/kaggle/working/`. |
+| **Exp 2** | **[Exp 2: FAISS Hybrid RAG & Contrastive Embeddings](https://www.kaggle.com/code/akmalshahbaz/exp-2-faiss-hybrid-rag-contrastive-embeddings)**<br/>([`kaggle_gpu_kernels/exp2_faiss_hybrid_rag_embeddings/`](kaggle_gpu_kernels/exp2_faiss_hybrid_rag_embeddings/exp2_faiss_hybrid_rag_embeddings.ipynb)) • ⚡ *Tesla T4 GPU* | **`sentence-transformers/all-MiniLM-L6-v2`** (`22.7M` params) with **Multiple-Negatives Ranking / InfoNCE Loss** on GPU + **FAISS `IndexFlatIP`** + **Okapi BM25** via **Reciprocal Rank Fusion (RRF, $k=60$)** | **`COMPLETE` ✅ (71.2s on Tesla T4)**<br/>• Zero-Shot FAISS Dense: `87.5% Recall@1`, `0.9457 nDCG@5`<br/>• **Contrastive Fine-Tuned Dense: 100.0% Recall@1, 1.0000 nDCG@5**<br/>• Trained `model.safetensors` (86.7 MB) saved and downloaded to `kaggle_outputs/exp2/`. |
+| **Exp 3** | **[Exp 3: Long-Context RoPE Insurance Policy Mining](https://www.kaggle.com/code/akmalshahbaz/exp-3-long-context-rope-insurance-policy-mining)**<br/>([`kaggle_gpu_kernels/exp3_long_context_rope_policy_mining/`](kaggle_gpu_kernels/exp3_long_context_rope_policy_mining/exp3_long_context_rope_policy_mining.ipynb)) • ⚡ *Tesla T4 GPU* | **Rotary Position Embedding (`RoPE`) Dynamic-NTK Scaling** ($\theta' = \theta \cdot s^{d/(d-2)}$) vs. **Linear Positional Interpolation (PI)** vs. **Naive 4K Truncation** on `32,768` token contracts | Benchmarks Multi-Depth Needle Recall across `10% Early`, `50% Middle` (*Lost-in-the-Middle*), and `90% Late` policy clauses, proving elimination of middle-document attention collapse. |
+| **Exp 4** | **[Exp 4: DPO Alignment & Agentic Insurance Claims](https://www.kaggle.com/code/akmalshahbaz/exp-4-dpo-alignment-agentic-insurance-claims)**<br/>([`kaggle_gpu_kernels/exp4_agentic_langgraph_dpo_mlflow/`](kaggle_gpu_kernels/exp4_agentic_langgraph_dpo_mlflow/exp4_agentic_langgraph_dpo_mlflow.ipynb)) • ⚡ *Tesla T4 GPU* | **`HuggingFaceTB/SmolLM2-135M-Instruct`** + **Direct Preference Optimization (DPO $\beta=0.1$)** on `(Prompt, Grounded Policy Decision, Hallucinated Approval)` triplets | Eliminates policy hallucinations and enforces strict policy clause citations; exports aligned DPO LoRA adapters and MLflow tracking metrics to `/kaggle/working/`. |
+
+---
+
 ## 🏛️ System Architecture
 
 ```mermaid
