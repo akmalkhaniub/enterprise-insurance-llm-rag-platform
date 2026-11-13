@@ -1,9 +1,167 @@
 {
   "title": "Commercial Insurance Policies & Claims Corpus",
   "id": "akmalshahbaz/commercial-insurance-policies-and-claims-corpus",
+  "subtitle": "Commercial insurance policy clauses & claims corpus for Hybrid RAG, LoRA & DPO",
+  "description": "# Commercial Insurance Policies & Claims Corpus (RAG, LoRA & Agentic Adjudication)\n\n## Overview & Context\nThis synthetic commercial insurance corpus pairs **structured policy clause wording and contractual limits** (`16` clauses across `6` commercial lines) with **multi-clause actuarial claims adjudication test cases** (`8` claims with ground-truth coverage decisions, net payouts, governing clause citations, and structured extraction targets). Produced alongside the [`enterprise-insurance-llm-rag-platform`](https://github.com/akmalkhaniub/enterprise-insurance-llm-rag-platform) benchmark suite, it is designed for **Hybrid RAG (`FAISS` + `BM25` + `RRF`)**, **structured JSON extraction via LoRA/QLoRA**, **DPO grounded-citation alignment**, and **agentic claims adjudication evaluation**.\n\nThe corpus spans 6 commercial lines:\n1. **Cyber & Network Security Liability** (ransomware extortion, incident forensics, MFA/ISO-27001 condition precedents)\n2. **Commercial Industrial Property & BI** (machinery breakdown, named storm flood sublimits, maintenance exclusions)\n3. **Ocean Marine & Pharmaceutical Cold-Chain Cargo** (Institute Cargo Clauses A, reefer breakdown spoilage)\n4. **Directors & Officers (D&O) Liability** (Side A/B securities litigation, intentional fraud exclusions)\n5. **Employer Medical Stop-Loss & Catastrophic Health** (specific stop-loss attachment points, biologics/ICU care)\n6. **Commercial Heavy Logistics & Telematics Fleet** (Class-8 tractor collision, ELD compliance exclusions)\n\n---\n\n## Files Included (2 Relational CSV Tables)\n\n### 1. `insurance_policy_clauses.csv` (16 rows × 12 columns)\nStructured commercial policy clauses (`COVERAGE_GRANT`: 6, `EXCLUSION`: 6, `SUBLIMIT`: 2, `CONDITION_PRECEDENT`: 2) indexed for dense/lexical retrieval and long-context extraction depth experiments:\n- `chunk_id` *(string)*: Unique clause identifier (e.g., `CLS-CYB-101`).\n- `policy_id` *(string)*: Master policy identifier joining directly to `insurance_claims_benchmark.csv` (`POL-CYB-2026-001`, etc.).\n- `product_line` *(string)*: Commercial insurance line name.\n- `section_code` *(string)*: Formal contract section label (e.g., `SECTION I.A`).\n- `section_title` *(string)*: Title of the insuring agreement, exclusion, sublimit, or condition precedent.\n- `clause_type` *(string)*: Categorical role (`COVERAGE_GRANT`, `EXCLUSION`, `SUBLIMIT`, `CONDITION_PRECEDENT`).\n- `token_offset` *(integer)*: Nominal token position inside a full-length master policy document.\n- `text` *(string)*: Full legal contract wording of the clause.\n- `max_limit_usd` *(number)*: Maximum coverage limit or sublimit in USD (`0.0` for exclusions).\n- `deductible_usd` *(number)*: Mandatory deductible/retention in USD (`0.0` when not applicable).\n- `waiting_period_hours` *(integer)*: Qualifying business interruption or outage waiting period in hours.\n- `requires_iso27001_or_mfa` *(boolean)*: Technical security safeguard prerequisite flag.\n\n### 2. `insurance_claims_benchmark.csv` (8 rows × 13 columns)\nEnd-to-end commercial claims adjudication benchmark (`APPROVED_PARTIAL`: 5, `DENIED_EXCLUSION`: 3) with deterministic net payouts and target structured JSON outputs:\n- `claim_id` *(string)*: Unique claim identifier (e.g., `CLM-2026-9001`).\n- `policy_id` *(string)*: Foreign key linking to `insurance_policy_clauses.csv`.\n- `product_line` *(string)*: Commercial insurance line name.\n- `insured_entity` *(string)*: Synthetic corporate policyholder name.\n- `loss_date` *(string)*: ISO date (`YYYY-MM-DD`) when the loss event occurred.\n- `reported_date` *(string)*: ISO date (`YYYY-MM-DD`) when the claim was notified to the insurer.\n- `claimed_amount_usd` *(number)*: Initial gross loss amount claimed in USD.\n- `peril_category` *(string)*: Standardized category of the triggering peril.\n- `claim_narrative` *(string)*: Unstructured loss narrative and field adjuster findings.\n- `ground_truth_decision` *(string)*: Correct adjudication outcome (`APPROVED_PARTIAL` or `DENIED_EXCLUSION`).\n- `ground_truth_payout_usd` *(number)*: Verified net settlement payout in USD after deductibles, sublimits, or exclusion denial.\n- `governing_clause_id` *(string)*: Foreign key pointing to the controlling `chunk_id` in `insurance_policy_clauses.csv`.\n- `expected_json_extraction` *(string)*: Target serialized dictionary/JSON structure for supervised extraction and schema evaluation.\n\n---\n\n## Use Cases & Source\n- **Hybrid RAG Benchmarking:** Measure `Recall@1` and `nDCG@5` mapping `claim_narrative` queries to `governing_clause_id` across dense embeddings, BM25, and Reciprocal Rank Fusion.\n- **Deterministic Payout & Exclusion Reasoning:** Test whether LLM agents apply `max_limit_usd`, `deductible_usd`, `waiting_period_hours`, and `requires_iso27001_or_mfa` without hallucinating coverage on excluded losses.\n- **Source Repository:** https://github.com/akmalkhaniub/enterprise-insurance-llm-rag-platform\n- **License:** CC0-1.0 (Public Domain — synthetic benchmark data).\n",
   "licenses": [
     {
       "name": "CC0-1.0"
+    }
+  ],
+  "keywords": [
+    "business",
+    "finance",
+    "nlp",
+    "deep learning",
+    "data analytics"
+  ],
+  "expectedUpdateFrequency": "quarterly",
+  "userSpecifiedSources": "https://github.com/akmalkhaniub/enterprise-insurance-llm-rag-platform",
+  "resources": [
+    {
+      "path": "insurance_policy_clauses.csv",
+      "description": "16 structured commercial policy clauses across 6 lines with limits, deductibles, waiting periods, and safeguard flags.",
+      "schema": {
+        "fields": [
+          {
+            "name": "chunk_id",
+            "type": "string",
+            "description": "Unique policy clause chunk identifier (e.g., CLS-CYB-101)."
+          },
+          {
+            "name": "policy_id",
+            "type": "string",
+            "description": "Master commercial policy identifier joining to insurance_claims_benchmark.csv."
+          },
+          {
+            "name": "product_line",
+            "type": "string",
+            "description": "Commercial insurance line (6 lines supported)."
+          },
+          {
+            "name": "section_code",
+            "type": "string",
+            "description": "Contractual section designation (e.g., SECTION I.A)."
+          },
+          {
+            "name": "section_title",
+            "type": "string",
+            "description": "Descriptive title of the insuring agreement, endorsement, or exclusion."
+          },
+          {
+            "name": "clause_type",
+            "type": "string",
+            "description": "Clause classification (COVERAGE_GRANT, EXCLUSION, SUBLIMIT, CONDITION_PRECEDENT)."
+          },
+          {
+            "name": "token_offset",
+            "type": "integer",
+            "description": "Simulated token offset inside the master contract for long-context retrieval tests."
+          },
+          {
+            "name": "text",
+            "type": "string",
+            "description": "Full legal clause wording stored for lexical and dense RAG retrieval."
+          },
+          {
+            "name": "max_limit_usd",
+            "type": "number",
+            "description": "Applicable coverage limit or sublimit in USD (0.0 for exclusions)."
+          },
+          {
+            "name": "deductible_usd",
+            "type": "number",
+            "description": "Policy retention/deductible in USD (0.0 if none)."
+          },
+          {
+            "name": "waiting_period_hours",
+            "type": "integer",
+            "description": "Qualifying waiting period duration in hours."
+          },
+          {
+            "name": "requires_iso27001_or_mfa",
+            "type": "boolean",
+            "description": "Boolean flag indicating whether ISO 27001 or MFA is required."
+          }
+        ]
+      }
+    },
+    {
+      "path": "insurance_claims_benchmark.csv",
+      "description": "8 multi-clause commercial claims with adjuster narratives, governing clause links, payouts, and JSON targets.",
+      "schema": {
+        "fields": [
+          {
+            "name": "claim_id",
+            "type": "string",
+            "description": "Unique commercial claim identifier (e.g., CLM-2026-9001)."
+          },
+          {
+            "name": "policy_id",
+            "type": "string",
+            "description": "Foreign key matching policy_id in insurance_policy_clauses.csv."
+          },
+          {
+            "name": "product_line",
+            "type": "string",
+            "description": "Commercial insurance line associated with the claim."
+          },
+          {
+            "name": "insured_entity",
+            "type": "string",
+            "description": "Synthetic corporate policyholder organization name."
+          },
+          {
+            "name": "loss_date",
+            "type": "string",
+            "description": "ISO date (YYYY-MM-DD) on which the underlying peril occurred."
+          },
+          {
+            "name": "reported_date",
+            "type": "string",
+            "description": "ISO date (YYYY-MM-DD) on which the loss was reported."
+          },
+          {
+            "name": "claimed_amount_usd",
+            "type": "number",
+            "description": "Gross dollar amount claimed prior to sublimits and deductibles."
+          },
+          {
+            "name": "peril_category",
+            "type": "string",
+            "description": "Standardized category describing the claimed peril."
+          },
+          {
+            "name": "claim_narrative",
+            "type": "string",
+            "description": "Unstructured claim event description and adjuster investigation summary."
+          },
+          {
+            "name": "ground_truth_decision",
+            "type": "string",
+            "description": "Verified adjudication label (APPROVED_PARTIAL or DENIED_EXCLUSION)."
+          },
+          {
+            "name": "ground_truth_payout_usd",
+            "type": "number",
+            "description": "Deterministic net settlement payout in USD."
+          },
+          {
+            "name": "governing_clause_id",
+            "type": "string",
+            "description": "Foreign key linking to chunk_id of the controlling clause in insurance_policy_clauses.csv."
+          },
+          {
+            "name": "expected_json_extraction",
+            "type": "string",
+            "description": "Structured target extraction dictionary/JSON string for LLM evaluation."
+          }
+        ]
+      }
+    },
+    {
+      "path": "README.md",
+      "description": "Dataset documentation, relational schema overview, and benchmark use cases."
     }
   ]
 }
